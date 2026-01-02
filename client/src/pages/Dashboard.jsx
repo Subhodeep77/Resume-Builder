@@ -4,6 +4,7 @@ import {
   PencilIcon,
   PlusIcon,
   TrashIcon,
+  UploadCloud,
   UploadCloudIcon,
   XIcon,
 } from "lucide-react";
@@ -23,6 +24,24 @@ const Dashboard = () => {
 
   const loadAllResumes = async () => {
     setAllResumes(dummyResumeData);
+  };
+
+  const uploadResume = async (event) => {
+    event.preventDefault();
+
+    if (!title.trim()) {
+      setError("Please enter a resume title.");
+      return;
+    }
+
+    if (!resume) {
+      setError("Please upload a resume file.");
+      return;
+    }
+
+    setError("");
+    setShowUploadResume(false);
+    navigate(`/app/builder/res123`);
   };
 
   const createResume = async (event) => {
@@ -58,7 +77,7 @@ const Dashboard = () => {
               Create Resume
             </p>
           </button>
-          <button className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group hover:border-purple-500 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <button onClick={() => setShowUploadResume(true)} className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group hover:border-purple-500 hover:shadow-lg transition-all duration-300 cursor-pointer">
             <UploadCloudIcon className="size-11 transition-all duration-300 p-2.5 bg-linear-to-br from-purple-300 to-purple-500 text-white rounded-full" />
             <p className="text-sm group-hover:text-purple-600 transition-all duration-300">
               Upload Existing
@@ -72,6 +91,7 @@ const Dashboard = () => {
             return (
               <button
                 key={index}
+                onClick={() => navigate(`/app/builder/${resume._id}`)}
                 className="relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer"
                 style={{
                   background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
@@ -170,11 +190,23 @@ const Dashboard = () => {
               {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
               <div>
-                <label htmlFor="resume-input" className="block text-sm text-slate-700">Select resume file
+                <label
+                  htmlFor="resume-input"
+                  className="block text-sm text-slate-700"
+                >
+                  Select resume file
                   <div className="flex flex-col items-center justify-center gap-2 border group text-slate-400 border-slate-400 border-dashed rounded-md p-4 py-10 my-4 hover:border-indigo-500 hover:text-indigo-700 cursor-pointer transition-colors">
-
+                    {resume ? (
+                      <p className="text-indigo-700">{resume.name}</p>
+                    ) : (
+                      <>
+                        <UploadCloud className="size-14 stroke-1" />
+                        <p>Upload Resume</p>
+                      </>
+                    )}
                   </div>
                 </label>
+                <input type="file" id="resume-input" accept=".pdf" hidden onChange={(e) => setResume(e.target.files[0])}/>
               </div>
 
               <button className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
