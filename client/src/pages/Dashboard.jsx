@@ -26,6 +26,33 @@ const Dashboard = () => {
     setAllResumes(dummyResumeData);
   };
 
+  const editTitle = async (event) => {
+    event.preventDefault();
+
+    if (!title.trim()) {
+      setError("Please enter a resume title.");
+      return;
+    }
+
+    setAllResumes((prev) =>
+      prev.map((r) => (r._id === editResumeId ? { ...r, title } : r))
+    );
+
+    setEditResumeId("");
+    setTitle("");
+    setError("");
+  };
+
+  const deleteResume = async (resumeId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this resume?"
+    );
+
+    if (confirmDelete) {
+      setAllResumes((prev) => prev.filter((resume) => resume._id !== resumeId));
+    }
+  };
+
   const uploadResume = async (event) => {
     event.preventDefault();
 
@@ -41,6 +68,7 @@ const Dashboard = () => {
 
     setError("");
     setShowUploadResume(false);
+    setTitle("");
     navigate(`/app/builder/res123`);
   };
 
@@ -54,6 +82,7 @@ const Dashboard = () => {
 
     setError("");
     setShowCreateResume(false);
+    setTitle("");
     navigate(`/app/builder/res123`);
   };
 
@@ -77,7 +106,10 @@ const Dashboard = () => {
               Create Resume
             </p>
           </button>
-          <button onClick={() => setShowUploadResume(true)} className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group hover:border-purple-500 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <button
+            onClick={() => setShowUploadResume(true)}
+            className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group hover:border-purple-500 hover:shadow-lg transition-all duration-300 cursor-pointer"
+          >
             <UploadCloudIcon className="size-11 transition-all duration-300 p-2.5 bg-linear-to-br from-purple-300 to-purple-500 text-white rounded-full" />
             <p className="text-sm group-hover:text-purple-600 transition-all duration-300">
               Upload Existing
@@ -114,9 +146,21 @@ const Dashboard = () => {
                 >
                   Updated on {new Date(resume.updatedAt).toLocaleDateString()}
                 </p>
-                <div className="absolute top-1 right-1 group-hover:flex items-center hidden">
-                  <TrashIcon className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
-                  <PencilIcon className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute top-1 right-1 hidden group-hover:flex items-center"
+                >
+                  <TrashIcon
+                    onClick={() => deleteResume(resume._id)}
+                    className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors"
+                  />
+                  <PencilIcon
+                    onClick={() => {
+                      setEditResumeId(resume._id);
+                      setTitle(resume.title);
+                    }}
+                    className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors"
+                  />
                 </div>
               </button>
             );
@@ -157,6 +201,7 @@ const Dashboard = () => {
                 onClick={() => {
                   setShowCreateResume(false);
                   setTitle("");
+                  setError("");
                 }}
               />
             </div>
@@ -170,6 +215,7 @@ const Dashboard = () => {
                 setShowUploadResume(false);
                 setTitle("");
                 setError("");
+                setResume(null);
               }
             }}
             className="fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center"
@@ -206,7 +252,13 @@ const Dashboard = () => {
                     )}
                   </div>
                 </label>
-                <input type="file" id="resume-input" accept=".pdf" hidden onChange={(e) => setResume(e.target.files[0])}/>
+                <input
+                  type="file"
+                  id="resume-input"
+                  accept=".pdf"
+                  hidden
+                  onChange={(e) => setResume(e.target.files[0])}
+                />
               </div>
 
               <button className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
@@ -216,6 +268,48 @@ const Dashboard = () => {
                 className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
                 onClick={() => {
                   setShowUploadResume(false);
+                  setTitle("");
+                  setResume(null);
+                  setError("");
+                }}
+              />
+            </div>
+          </form>
+        )}
+        {editResumeId && (
+          <form
+            onSubmit={editTitle}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setEditResumeId("");
+                setTitle("");
+                setError("");
+              }
+            }}
+            className="fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-slate-50 border shadow-md rounded-lg w-full max-w-sm p-6"
+            >
+              <h2 className="text-xl font-bold mb-4">Edit Resume Title</h2>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter resume title"
+                className="w-full px-4 py-2 mb-1 border rounded-md focus:border-indigo-600 outline-none"
+              />
+
+              {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+
+              <button className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
+                Update
+              </button>
+              <XIcon
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
+                onClick={() => {
+                  setEditResumeId("");
                   setTitle("");
                 }}
               />
