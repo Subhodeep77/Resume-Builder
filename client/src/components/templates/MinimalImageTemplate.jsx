@@ -84,6 +84,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                         <p className="text-xs text-zinc-500">
                                             {formatDate(edu.graduation_date)}
                                         </p>
+                                        {edu.cgpa && <p className="text-xs text-zinc-500">CGPA: {edu.cgpa}</p>}
                                     </div>
                                 ))}
                             </div>
