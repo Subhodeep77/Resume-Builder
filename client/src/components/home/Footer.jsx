@@ -176,7 +176,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="mt-3 text-center">
-            © 2025 Resume Builder
+            © 2026 Resume Builder
           </p>
         </div>
       </footer>
