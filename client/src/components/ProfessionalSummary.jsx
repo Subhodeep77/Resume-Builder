@@ -1,7 +1,22 @@
 import { Sparkles } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
+import api from '../configs/api.js'
 
 const ProfessionalSummary = ({data, onChange, setResumeData}) => {
+  const {token} = useSelector(state => state.auth)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const generateSummary = async () => {
+    try {
+        setIsGenerating(true)
+        const prompt = `enhance my professional summary "${data}"`
+        const response = await api.post('api/ai/enhance-pro-sum', {userContent: prompt}, {headers: {Authorization: token}})
+        setResumeData(prev => ({...prev, ProfessionalSummary: response.data.enhancedContent}))
+    } catch (error) {
+        toast.error(error?.response?.data?.message || error.message)
+    }
+  }
   return (
     <div className='space-y-4'>
         <div className="flex items-center justify-between">
