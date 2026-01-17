@@ -109,3 +109,42 @@ export const uploadResume = async (req, res) => {
         return res.status(500).json({ message: error.message })
     }
 }
+
+export const enhanceProjectDescription = async (req, res) => {
+    try {
+        const { userContent } = req.body;
+
+        if (!userContent) {
+            return res.status(400).json({ message: 'Missing required fields' });
+        }
+
+        const response = await ai.chat.completions.create({
+            model: process.env.OPENAI_MODEL,
+            messages: [
+                {
+                    role: 'system',
+                    content: `
+You are an expert resume writer.
+Your task is to enhance a project description for a resume.
+
+Rules:
+- Rewrite into 3–4 concise, impact-focused bullet points (or a tight paragraph if bullets are not possible).
+- Quantify results where possible (performance %, users, scale, time saved, revenue, etc.).
+- Clearly mention technologies, tools, and methodologies used within the project.
+- Use strong action verbs.
+- Make it ATS-friendly.
+- Do NOT add headings, numbering, or explanations.
+- Return ONLY the rewritten text.
+`
+                },
+                { role: 'user', content: userContent }
+            ]
+        });
+
+        const enhancedContent = response.choices[0].message.content;
+        return res.status(200).json({enhancedContent});
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};

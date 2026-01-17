@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Link, useParams } from "react-router-dom";
-import { dummyResumeData } from "../assets/assets";
 import {
   ArrowLeftIcon,
   Briefcase,
@@ -92,7 +91,7 @@ const ResumeBuilder = () => {
 
   const handleShare = () => {
     const frontendUrl = window.location.href.split('/app')[0]
-    const resumeUrl  = frontendUrl + '/view' + resumeId
+    const resumeUrl  = frontendUrl + '/view/' + resumeId
 
     if(navigator.share){
       navigator.share({url: resumeUrl, text: "My Resume"})
