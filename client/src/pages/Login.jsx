@@ -105,7 +105,7 @@ const Login = () => {
         </button>
         <p
           onClick={() =>
-            setState((prev) => (prev === "login" ? "Sign up" : "login"))
+            setState((prev) => (prev === "login" ? "register" : "login"))
           }
           className="text-gray-500 text-sm mt-3 mb-11"
         >
