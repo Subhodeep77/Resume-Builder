@@ -1,70 +1,152 @@
 # Resume Builder Web Application
 
-A full-stack **Resume Builder** web application that enables users to create, edit, and preview professional resumes with ease. This project leverages a modern **MERN (MongoDB, Express.js, React, Node.js)** stack along with advanced functionality for uploading existing resumes, AI-enhanced text generation, and customizable templates for printable/ATS-friendly resumes.
+A full-stack **Resume Builder** web application that enables users to create, edit, and preview professional resumes with ease. The project is built using a modern **MERN (MongoDB, Express.js, React, Node.js)** stack and includes AI-powered enhancements, resume upload and extraction, and customizable templates designed to be **ATS-friendly and print-ready**.
+
+---
 
 ## 🔍 Overview
 
-This application empowers job seekers to quickly construct professional resumes online. Users can register and log in, fill in personal details, work experience, education, projects and skills, view a live preview, use AI enhancements for specific sections, upload an existing resume for extraction, and save their resume data. It supports multiple templates and real-time previews, making resume building intuitive and efficient.
+This application empowers job seekers to quickly construct high-quality resumes online. Users can:
+
+- Register and log in securely
+- Fill in personal, professional, education, project, and skills details
+- Preview resumes in real time
+- Upload an existing resume for automated data extraction
+- Use AI to enhance summaries and descriptions
+- Save, print, and export resumes
+
+The platform supports multiple templates with live previews, ensuring a smooth and intuitive resume-building experience.
+
+---
 
 ## 🧠 Features
 
-### Core
+### Core Features
 
-- **User Authentication** – Register, login, secure token-based access.
-- **Live Resume Builder** – Users can add personal, professional, project, education, and skills data.
-- **Resume Upload & Extract** – Import a PDF resume and auto-extract structured data using an LLM agent.
-- **AI Enhancements** – Improve summaries, job descriptions, and project descriptions using prompt-based AI.
-- **Multiple Templates & Preview** – Choose different resume templates with accent color options.
-- **Print / Download Support** – Format the resume for printing/ downloading as PDF.
-- **Responsive/UI Friendly** – Designed using Tailwind CSS for adaptive layouts.
+- **User Authentication**  
+  Secure registration and login using JWT-based authentication.
+
+- **Live Resume Builder**  
+  Create and edit resume sections with real-time preview.
+
+- **Resume Upload & Extraction**  
+  Upload an existing PDF resume and automatically extract structured data using AI.
+
+- **AI Enhancements**  
+  Improve professional summaries, job descriptions, and project descriptions using LLM prompts.
+
+- **Multiple Templates & Customization**  
+  Choose from multiple resume templates with customizable accent colors.
+
+- **Print & Download Support**  
+  Export resumes in a clean, printable, and ATS-friendly format.
+
+- **Responsive UI**  
+  Built with Tailwind CSS for modern, responsive design across devices.
+
+---
 
 ## 🧩 Tech Stack
 
-Below is the core stack used in this project:
-
 ### Frontend
 
-- **React.js** — UI library for building responsive interface.
-- **React Router** — For client-side routing.
-- **Redux Toolkit** — Global state management.
-- **Tailwind CSS** — Utility-first CSS framework.
-- **React Hot Toast** — Notifications.
-- **Lucide-React Icons** — UI icon set.
-- **PDF to Text (pdf-to-text)** — Extract text from uploaded PDF files.
+- **React.js** — Component-based UI library
+- **React Router** — Client-side routing
+- **Redux Toolkit** — Global state management
+- **Tailwind CSS** — Utility-first styling
+- **React Hot Toast** — Notifications and alerts
+- **Lucide-React** — Icon library
+- **PDF to Text** — Extract text from uploaded PDF resumes
 
 ### Backend
 
-- **Node.js + Express.js** — Backend server and REST API.
-- **MongoDB + Mongoose** — NoSQL database for persisting user and resume data.
-- **JWT (JSON Web Tokens)** — Authentication and session management.
-- **bcrypt** — Password hashing and security.
-- **crypto** — Token generation for secure reset flows.
-- **AI Integration** — Interact with LLM endpoints for text enhancement.
-- **Nodemailer** — Email delivery service for password recovery (optional).
+- **Node.js + Express.js** — RESTful API and server logic
+- **MongoDB + Mongoose** — Database and data modeling
+- **JWT (JSON Web Tokens)** — Authentication and session management
+- **bcrypt** — Secure password hashing
+- **crypto** — Secure token generation (password reset)
+- **AI Integration** — LLM-based resume text enhancement
+- **Nodemailer** — Email service for password recovery (optional)
+
+---
 
 ## 🚀 Capabilities
 
-| User Action | Backend | Frontend |
-|-------------|---------|-----------|
-| Register/Login | REST | Auth form + redux |
-| Resume Create/Edit | REST | Forms + live preview |
-| Upload Resume | AI extraction | UI upload + parser |
-| AI Enhance | Prompt API | Async enhance calls |
-| Save/Export Resume | DB | Print/Download UI |
+| User Action         | Backend        | Frontend              |
+|--------------------|---------------|-----------------------|
+| Register / Login   | REST APIs     | Auth Forms + Redux    |
+| Resume Create/Edit | REST APIs     | Forms + Live Preview  |
+| Upload Resume      | AI Extraction | File Upload UI        |
+| AI Enhancement     | Prompt APIs   | Async Enhance Calls   |
+| Save / Export      | Database      | Print / Download UI  |
+
+---
 
 ## 📁 Project Structure
 
+```plaintext
 resume-builder/
-├── client/ … React app
-├── server/ … Express API + AI integration
-├── config/ … DB, API settings
-├── models/ … Mongoose schemas
-├── routes/ … REST endpoints
-├── controllers/ … Business logic
-├── hooks/ … AI utility helpers
-├── middleware/ … Auth checks
-├── public/ … Static assets
-├── utils/ … Utils (email sender etc.)
+├── client/          # React frontend
+├── server/          # Express backend
+├── config/          # Database and API configuration
+├── models/          # Mongoose schemas
+├── routes/          # REST API routes
+├── controllers/     # Business logic
+├── middleware/      # Authentication and guards
+├── hooks/           # AI utility helpers
+├── utils/           # Utility functions (email, tokens, etc.)
+├── public/          # Static assets
 ├── README.md
-└── package.json
+└── package.json```
 
+---
+
+📦 Installation
+1. Clone the Repository
+git clone https://github.com/Subhodeep77/Resume-Builder.git
+cd Resume-Builder
+
+---
+
+2. Install Dependencies
+Backend
+cd server
+npm install
+Frontend
+cd ../client
+npm install
+
+---
+
+3. Environment Variables
+Create a .env file in the server directory.
+
+PORT=3000
+DB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+FRONTEND_URL=http://localhost:5173
+EMAIL_USER=your_email@example.com        # optional
+EMAIL_PASS=your_email_app_password       # app-specific password
+OPENAI_MODEL=gpt-4.1                    # or any supported model
+IMAGEKIT_PRIVATE_KEY=example
+OPENAI_BASE_URL=example
+OPENAI_API_KEY=example
+
+---
+
+4. Run the Application
+Backend
+npm run dev
+Backend runs at: http://localhost:3000
+
+Frontend
+cd client
+npm run dev
+Frontend runs at: http://localhost:5173
+
+
+-----
+
+🤝 Contributing
+Contributions are welcome.
+Feel free to fork the repository, create a feature branch, and submit a pull request.
