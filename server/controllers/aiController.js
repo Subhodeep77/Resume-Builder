@@ -59,37 +59,37 @@ export const uploadResume = async (req, res) => {
 
         {
         professional_summary: {type: String, default: ''},
-        skills: [{type: String}],
-        personal_info: {
-            image: {type: String, default: ''},
-            full_name: {type: String, default: ''},
-            profession: {type: String, default: ''},
-            email: {type: String, default: ''},
-            phone: {type: String, defalt: ''},
-            location: {type: String, defalt: ''},
-            linkedin: {type: String, defalt: ''},
-            website: {type: String, defalt: ''},
-        },
-        experience: [{
-            company: {type: String},
-            position: {type: String},
-            start_date: {type: String},
-            end_date: {type: String},
-            description: {type: String},
-            is_current: {type: Boolean}
-        }],
-        project: [{
-            name: {type: String},
-            type: {type: String},
-            description: {type: String}
-        }],
-        education: [{
-            institution: {type: String},
-            degree: {type: String},
-            field: {type: String},
-            graduation_date: {type: String},
-            cgpa: {type: String}
-        }]
+    skills: [{type: String}],
+    personal_info: {
+        image: {type: String, default: ''},
+        full_name: {type: String, default: ''},
+        profession: {type: String, default: ''},
+        email: {type: String, default: ''},
+        phone: {type: String, defalt: ''},
+        location: {type: String, defalt: ''},
+        linkedin: {type: String, defalt: ''},
+        website: {type: String, defalt: ''},
+    },
+    experience: [{
+        company: {type: String},
+        position: {type: String},
+        start_date: {type: String},
+        end_date: {type: String},
+        description: {type: String},
+        is_current: {type: Boolean}
+    }],
+    project: [{
+        name: {type: String},
+        type: {type: String},
+        description: {type: String}
+    }],
+    education: [{
+        institution: {type: String},
+        degree: {type: String},
+        field: {type: String},
+        graduation_date: {type: String},
+        cgpa: {type: String}
+    }]
         }
         
         `
@@ -128,12 +128,14 @@ You are an expert resume writer.
 Your task is to enhance a project description for a resume.
 
 Rules:
-- Rewrite into 3–4 concise, impact-focused bullet points (or a tight paragraph if bullets are not possible).
+- Rewrite strictly into 3-4 concise, impact-focused bullet points. 
 - Quantify results where possible (performance %, users, scale, time saved, revenue, etc.).
 - Clearly mention technologies, tools, and methodologies used within the project.
 - Use strong action verbs.
 - Make it ATS-friendly.
 - Do NOT add headings, numbering, or explanations.
+- Each bullet must start with "-".
+- Do not return paragraphs.
 - Return ONLY the rewritten text.
 `
                 },
@@ -142,7 +144,7 @@ Rules:
         });
 
         const enhancedContent = response.choices[0].message.content;
-        return res.status(200).json({enhancedContent});
+        return res.status(200).json({ enhancedContent });
 
     } catch (error) {
         return res.status(500).json({ message: error.message });

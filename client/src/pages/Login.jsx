@@ -4,9 +4,11 @@ import { useDispatch } from "react-redux";
 import { login } from "../app/features/authSlice.js";
 import api from "../configs/api.js";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const query = new URLSearchParams(window.location.search);
   const urlState = query.get("state");
   const [state, setState] = React.useState(urlState || "login");
@@ -93,7 +95,7 @@ const Login = () => {
           />
         </div>
         <div className="mt-4 text-left text-indigo-500">
-          <button className="text-sm" type="reset">
+          <button className="text-sm" type="button" onClick={() => navigate('/forgot-password')}>
             Forget password?
           </button>
         </div>
