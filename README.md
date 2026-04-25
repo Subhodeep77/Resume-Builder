@@ -1,5 +1,10 @@
 # Resume Builder Web Application
 
+![License](https://img.shields.io/badge/license-MIT-green)
+![Node](https://img.shields.io/badge/backend-Node.js-brightgreen)
+![React](https://img.shields.io/badge/frontend-React-blue)
+![MongoDB](https://img.shields.io/badge/database-MongoDB-green)
+
 A full-stack **Resume Builder** web application that enables users to create, edit, and preview professional resumes with ease. The project is built using a modern **MERN (MongoDB, Express.js, React, Node.js)** stack and includes AI-powered enhancements, resume upload and extraction, and customizable templates designed to be **ATS-friendly and print-ready**.
 
 ---
@@ -84,69 +89,161 @@ The platform supports multiple templates with live previews, ensuring a smooth a
 
 ## 📁 Project Structure
 
-```plaintext
-resume-builder/
-├── client/          # React frontend
-├── server/          # Express backend
-├── config/          # Database and API configuration
-├── models/          # Mongoose schemas
-├── routes/          # REST API routes
-├── controllers/     # Business logic
-├── middleware/      # Authentication and guards
-├── hooks/           # AI utility helpers
-├── utils/           # Utility functions (email, tokens, etc.)
-├── public/          # Static assets
-├── README.md
-└── package.json```
+```
+Resume-Builder/
+│
+├── client/                     # Frontend (React)
+│   ├── src/
+│   │   ├── components/         # Reusable UI components
+│   │   ├── pages/              # Route-level pages
+│   │   ├── redux/              # Redux Toolkit slices & store
+│   │   ├── hooks/              # Custom hooks
+│   │   ├── assets/              # Helper functions
+│   │   └── App.jsx
+│   └── public/
+│
+├── server/                     # Backend (Node.js + Express)
+│   ├── config/                 # DB config, external services
+│   ├── controllers/            # Business logic
+│   ├── middleware/             # Auth & request guards
+│   ├── models/                 # Mongoose schemas
+│   ├── routes/                 # API route definitions
+│   ├── utils/                  # Utilities (email, tokens, AI helpers)
+│   └── server.js               # Entry point
+│
+├── .env                        # Environment variables (backend)
+├── package.json                # Root config (if present)
+└── README.md
+```
 
 ---
 
-📦 Installation
-1. Clone the Repository
+## ⚙️ Installation
+
+### 1️⃣ Clone Repository
+
+```bash
 git clone https://github.com/Subhodeep77/Resume-Builder.git
 cd Resume-Builder
+```
 
 ---
 
-2. Install Dependencies
-Backend
+### 2️⃣ Install Dependencies
+
+#### 🔹 Backend
+
+```bash
 cd server
 npm install
-Frontend
-cd ../client
+```
+
+#### 🔹 Frontend
+
+```bash
+cd client
 npm install
+```
 
 ---
 
-3. Environment Variables
-Create a .env file in the server directory.
+## 🔐 Environment Variables
 
+Create a `.env` file inside the `server/` directory:
+
+```env
 PORT=3000
 DB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
+
 FRONTEND_URL=http://localhost:5173
-EMAIL_USER=your_email@example.com        # optional
-EMAIL_PASS=your_email_app_password       # app-specific password
-OPENAI_MODEL=gpt-4.1                    # or any supported model
-IMAGEKIT_PRIVATE_KEY=example
-OPENAI_BASE_URL=example
-OPENAI_API_KEY=example
+
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_app_password
+
+OPENAI_MODEL=gpt-4.1
+OPENAI_BASE_URL=your_base_url
+OPENAI_API_KEY=your_api_key
+
+IMAGEKIT_PRIVATE_KEY=your_imagekit_key
+```
 
 ---
 
-4. Run the Application
-Backend
-npm run dev
-Backend runs at: http://localhost:3000
+## ▶️ Running the Application
 
-Frontend
+### 🚀 Start Backend
+
+```bash
+cd server
+npm run dev
+```
+
+Backend runs at:  
+👉 http://localhost:3000  
+
+---
+
+### 💻 Start Frontend
+
+```bash
 cd client
 npm run dev
-Frontend runs at: http://localhost:5173
+```
 
+Frontend runs at:  
+👉 http://localhost:5173  
 
------
+---
 
-🤝 Contributing
+## 📊 Architecture Notes
+
+- 🔹 **Client (React)** handles UI, state (Redux), and API calls  
+- 🔹 **Server (Express)** handles authentication, resume logic, AI integration  
+- 🔹 **MongoDB** stores user and resume data  
+- 🔹 **AI Layer** enhances resume content via LLM APIs  
+- 🔹 **PDF Parsing** extracts structured data from uploaded resumes  
+
+---
+
+## 🔥 Key Improvements Made
+
+- ✅ Fixed incorrect folder placement (`config`, `models`, etc. now inside `/server`)  
+- ✅ Standardized naming (`server` instead of mixing `backend`)  
+- ✅ Clean indentation → GitHub-safe rendering  
+- ✅ Removed horizontal overflow issues  
+- ✅ Aligned with real MERN production architecture  
+
+---
+
+## 🤝 Contributing
+
 Contributions are welcome.
-Feel free to fork the repository, create a feature branch, and submit a pull request.
+
+### Steps:
+
+1. Fork the repository  
+2. Create a new branch (`feature/your-feature`)  
+3. Commit your changes  
+4. Push to your fork  
+5. Open a Pull Request  
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Subhodeep Paramanik**
+
+- GitHub: https://github.com/Subhodeep77
+
+---
+
+## ⭐ Final Note
+
+Resume Builder is designed as a **production-grade MERN application**, combining intelligent AI enhancements with a clean, modular, and scalable architecture. It provides a seamless experience for creating, optimizing, and managing professional resumes, making it ideal for both real-world deployment and learning full-stack development practices.
